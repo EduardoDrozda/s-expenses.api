@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import { JwtService as NestJwtService } from '@nestjs/jwt';
 
 type Secret = string | Buffer | { key: string | Buffer; passphrase: string };
@@ -8,7 +7,6 @@ interface JwtParams {
   privateKey?: Secret;
 }
 
-@Injectable()
 export class JwtService {
   constructor(
     private readonly params: JwtParams,

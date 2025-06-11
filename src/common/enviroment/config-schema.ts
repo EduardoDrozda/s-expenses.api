@@ -6,6 +6,7 @@ export const envSchema = z.object({
   CORS_ORIGIN: z.string().default('*'),
   JWT_SECRET: z.string(),
   JWT_EXPIRES_IN: z.string(),
+  HASH_ROUNDS: z.coerce.number().default(10),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;
