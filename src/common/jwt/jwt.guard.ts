@@ -10,7 +10,6 @@ export class JwtGuard implements CanActivate {
 
   constructor(
     private readonly jwtService: JwtService,
-    private readonly enviromentService: EnviromentService,
     private reflector: Reflector,
   ) { }
 
@@ -28,8 +27,6 @@ export class JwtGuard implements CanActivate {
     }
 
     try {
-      const secret = this.enviromentService.get('JWT_SECRET');
-
       const payload = await this.jwtService.verify(token);
 
       request['user'] = payload;

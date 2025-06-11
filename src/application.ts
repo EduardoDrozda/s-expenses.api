@@ -62,7 +62,7 @@ export class Application {
     const jwtService = this.server.get(JwtService);
     const reflector = this.server.get(Reflector);
 
-    this.server.useGlobalGuards(new JwtGuard(jwtService, this.enviromentService, reflector));
+    this.server.useGlobalGuards(new JwtGuard(jwtService, reflector));
     
     this.server.useGlobalFilters(new ErrorFilterFilter());
     this.server.useGlobalInterceptors(new ResponseInterceptor());

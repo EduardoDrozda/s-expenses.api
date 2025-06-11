@@ -8,7 +8,7 @@ export type UserModel = {
   password: string;
   company_id: string;
   is_active?: boolean;
-  role?: Roles;
+  role: Roles;
 } & BaseModel;
 
 export type CreateUserInput = Omit<UserModel, 'id' | 'created_at' | 'updated_at'>;

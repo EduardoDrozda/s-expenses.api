@@ -3,7 +3,7 @@ import 'knex';
 declare module 'knex/types/tables' {
   interface Tables {
    companies: {
-      id: string; // UUID
+      id: string;
       name: string;
       email: string;
       phone: string;

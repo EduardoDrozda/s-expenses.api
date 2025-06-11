@@ -7,7 +7,7 @@ import { validate } from './config-schema';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [path.resolve(__dirname, '..', '..', '..', '.env')],
+      envFilePath: [path.resolve(__dirname, '..', '..', '..', '..', '.env')],
       validate,
       isGlobal: true,
     }),

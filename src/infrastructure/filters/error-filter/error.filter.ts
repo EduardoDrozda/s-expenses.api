@@ -14,12 +14,30 @@ export class ErrorFilterFilter<T extends HttpException> implements ExceptionFilt
 
     const errorResponse: IBaseResponse = {
       error: true,
-      message: exception.message || 'Internal server error',
+      errorMessages: this.extractErrorMessage(exception),
       result: null,
       statusCode: status,
       timestamp: new Date().toISOString(),
     }
 
     response.status(status).json(errorResponse);
+  }
+
+  private extractErrorMessage(exception: T): string[] {
+    const response = exception.getResponse();
+    
+    if (typeof response === 'string') {
+      return [response];
+    }
+
+    if (Array.isArray(response)) {
+      return response;
+    }
+
+    if (typeof response === 'object' && response !== null) {
+      return response['message'] || response['error'] || [] || Object.values(response).flat();
+    }
+
+    return [];
   }
 }

@@ -1,0 +1,52 @@
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { IBaseUseCase } from "../IBase.use-case";
+import { GetUserDTO } from "@application/dtos/user/get-user.dto";
+import {
+  COMPANY_REPOSITORY,
+  ICompanyRepository,
+  IUserRepository,
+  USER_REPOSITORY
+} from "@application/repositories";
+
+import { LoggerService } from "@common/logger";
+import { GetUserByIdDTO } from "@application/dtos/user";
+
+@Injectable()
+export class GetUserByIdUseCase implements IBaseUseCase<GetUserByIdDTO, GetUserDTO> {
+  constructor(
+    @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
+    @Inject(COMPANY_REPOSITORY) private readonly companyRepository: ICompanyRepository,
+    private readonly loggerService: LoggerService
+  ) { }
+
+  async execute(data: GetUserByIdDTO): Promise<GetUserDTO> {
+    const { company_id, id } = data;
+    this.loggerService.log(`Executing GetUserByIdUseCase with data: ${JSON.stringify(data)}`);
+
+    const userPromise = this.userRepository.findById(id);
+    const companyPromise = this.companyRepository.findById(company_id);
+
+    const [user, company] = await Promise.all([userPromise, companyPromise]);
+
+    if (!user || !company) {
+      this.loggerService.warn(`User found`);
+      throw new NotFoundException(`User found`);
+    }
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      is_active: user.is_active,
+      company_id: user.company_id,
+      role: user.role,
+      company: {
+        id: company.id,
+        name: company.name
+      },
+      created_at: user.created_at,
+      updated_at: user.updated_at
+    }
+  }
+}

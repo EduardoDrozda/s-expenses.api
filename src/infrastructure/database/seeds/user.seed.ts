@@ -1,6 +1,6 @@
 import { RolesEnum } from "../../../domain/enums";
 import { CreateUserInput } from "../../../domain/models";
-import { HashService } from "../../hash/hash.service";
+import { HashService } from "../../../common/hash/hash.service";
 import { Knex } from "knex";
 
 export async function seed(knex: Knex): Promise<void> {

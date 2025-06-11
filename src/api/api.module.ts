@@ -1,8 +1,14 @@
 import { Module } from '@nestjs/common';
-import { CompanyController } from './controllers/company';
-import { AuthController } from './controllers/auth/auth.controller';
+import { UseCasesModule } from '@application/use-cases/use-cases.module';
+import { RepositoriesModule } from '@infrastructure/repositories/repositories.module';
+import {
+  AuthController,
+  CompanyController,
+  UserController
+} from './controllers';
 
 @Module({
-  controllers: [CompanyController, AuthController]
+  imports: [UseCasesModule, RepositoriesModule],
+  controllers: [CompanyController, AuthController, UserController]
 })
-export class ApiModule {}
+export class ApiModule { }

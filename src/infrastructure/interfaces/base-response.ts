@@ -1,6 +1,6 @@
 export interface IBaseResponse {
   error: boolean;
-  message?: string;
+  errorMessages?: string[];
   result?: any;
   statusCode?: number;
   timestamp?: string;
