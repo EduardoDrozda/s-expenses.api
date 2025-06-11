@@ -2,7 +2,10 @@ import { INestApplication, ValidationPipe, VersioningType } from "@nestjs/common
 import { AppModule } from "./app.module";
 import { EnviromentService } from "@common/enviroment";
 import { LoggerService } from "@common/logger";
-import { NestFactory } from "@nestjs/core";
+import { NestFactory, Reflector } from "@nestjs/core";
+import { JwtGuard, JwtService } from "@common/jwt";
+import { ErrorFilterFilter } from "@infrastructure/filters";
+import { ResponseInterceptor } from "@infrastructure/interceptors";
 
 export class Application {
   private server: INestApplication<AppModule>;
@@ -28,7 +31,7 @@ export class Application {
     this.server = await NestFactory.create(AppModule);
     this.enviromentService = this.server.get(EnviromentService);
     this.loggerService = this.server.get(LoggerService);
-    
+
     this.loggerService.context = Application.name;
   }
 
@@ -55,5 +58,13 @@ export class Application {
     );
 
     this.server.useLogger(this.loggerService);
+
+    const jwtService = this.server.get(JwtService);
+    const reflector = this.server.get(Reflector);
+
+    this.server.useGlobalGuards(new JwtGuard(jwtService, this.enviromentService, reflector));
+    
+    this.server.useGlobalFilters(new ErrorFilterFilter());
+    this.server.useGlobalInterceptors(new ResponseInterceptor());
   }
 }

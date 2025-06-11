@@ -4,6 +4,8 @@ export const envSchema = z.object({
   APP_PORT: z.coerce.number().default(8081),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   CORS_ORIGIN: z.string().default('*'),
+  JWT_SECRET: z.string(),
+  JWT_EXPIRES_IN: z.string(),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;
