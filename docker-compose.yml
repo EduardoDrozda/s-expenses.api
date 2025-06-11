@@ -1,0 +1,21 @@
+services:
+  s-expensives__db:
+    image: postgres:15
+    container_name: s_expensives__db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: s_expensives__db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - s_expensives__network
+
+volumes:
+  db_data:
+    driver: local
+networks:
+  s_expensives__network:
+    driver: bridge
