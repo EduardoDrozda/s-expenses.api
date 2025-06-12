@@ -6,6 +6,7 @@ import { NestFactory, Reflector } from "@nestjs/core";
 import { JwtGuard, JwtService } from "@common/jwt";
 import { ErrorFilterFilter } from "@infrastructure/filters";
 import { ResponseInterceptor } from "@infrastructure/interceptors";
+import { RolesGuard } from "@infrastructure/guards/role/role.guard";
 
 export class Application {
   private server: INestApplication<AppModule>;
@@ -63,6 +64,7 @@ export class Application {
     const reflector = this.server.get(Reflector);
 
     this.server.useGlobalGuards(new JwtGuard(jwtService, reflector));
+    this.server.useGlobalGuards(new RolesGuard(reflector));
     
     this.server.useGlobalFilters(new ErrorFilterFilter());
     this.server.useGlobalInterceptors(new ResponseInterceptor());

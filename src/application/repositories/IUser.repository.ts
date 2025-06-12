@@ -4,6 +4,6 @@ export const USER_REPOSITORY = Symbol("IUserRepository");
 
 export interface IUserRepository {
   findByEmail(email: string): Promise<UserModel | undefined>;
-  createUser(user: CreateUserInput): Promise<UserModel>;
+  create(user: CreateUserInput): Promise<UserModel>;
   findById(id: string): Promise<UserModel | undefined>;
 }

@@ -14,7 +14,7 @@ export class UserRepository implements IUserRepository {
       .first();
   }
   
-  async createUser(user: CreateUserInput): Promise<UserModel> {
+  async create(user: CreateUserInput): Promise<UserModel> {
     const [createdUser] = await this.database<UserModel>("users")
       .insert(user)
       .returning("*");

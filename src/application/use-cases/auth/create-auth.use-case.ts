@@ -27,8 +27,16 @@ export class CreateAuthUseCase implements IBaseUseCase<CreateAuthDTO, GetAuthDTO
       throw new UnauthorizedException("Invalid email or password");
     }
 
+    const token = await this
+      .jwtService
+      .sign({
+        id: existingUser.id,
+        company_id: existingUser.company_id,
+        role: existingUser.role
+      })
+
     return {
-      token: await this.jwtService.sign({ id: existingUser.id, company_id: existingUser.company_id }),
+      token,
       type: "Bearer"
     }
   }
