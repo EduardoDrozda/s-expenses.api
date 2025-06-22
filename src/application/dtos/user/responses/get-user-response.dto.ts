@@ -1,4 +1,6 @@
-export type GetUserDTO = {
+import { BaseResponseDto } from "@application/dtos/base";
+
+export type GetUserResponseDTO = {
   id: string;
   name: string;
   email: string;
@@ -9,7 +11,4 @@ export type GetUserDTO = {
     name: string;
   }
   role: string;
-  company_id: string;
-  created_at: string;
-  updated_at: string;
-}
+} & BaseResponseDto;

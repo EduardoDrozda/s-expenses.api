@@ -2,12 +2,13 @@ import { IUserRepository, USER_REPOSITORY } from "@application/repositories";
 import { LoggerService } from "@common/logger";
 import { ConflictException, Inject, Injectable } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
-import { CreateUserDTO } from "@application/dtos/user";
 import { RolesEnum } from "@domain/enums";
 import { HashService } from "@common/hash";
+import { CreateUserRequestDTO } from "@application/dtos/user/requests";
+
 
 @Injectable()
-export class CreateUserUseCase implements IBaseUseCase<CreateUserDTO, void> {
+export class CreateUserUseCase implements IBaseUseCase<CreateUserRequestDTO, void> {
 
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
@@ -16,7 +17,7 @@ export class CreateUserUseCase implements IBaseUseCase<CreateUserDTO, void> {
   ) { }
 
 
-  async execute(data: CreateUserDTO): Promise<void> {
+  async execute(data: CreateUserRequestDTO): Promise<void> {
     this.loggerService.log(`Creating user with data: ${JSON.stringify(data)}`);
 
     const findedUser = await this.userRepository.findByEmail(data.email);
@@ -31,8 +32,9 @@ export class CreateUserUseCase implements IBaseUseCase<CreateUserDTO, void> {
       email: data.email,
       password: await this.hashService.hash(data.password),
       phone: data.phone,
-      company_id: data.company_id,
-      role: RolesEnum.USER
+      company_id: data.company_id!,
+      role: RolesEnum.USER,
+      created_by: data.created_by,
     });
   }
 }

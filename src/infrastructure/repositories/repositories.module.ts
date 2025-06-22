@@ -1,7 +1,8 @@
-import { COMPANY_REPOSITORY, USER_REPOSITORY } from '@application/repositories';
+import { CATEGORY_EXPENSE_REPOSITORY, COMPANY_REPOSITORY, USER_REPOSITORY } from '@application/repositories';
 import { Global, Module } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { CompanyRepository } from './company.repository';
+import { CategoryExpenseRepository } from './category-expense.repository';
 
 @Global()
 @Module({
@@ -13,8 +14,12 @@ import { CompanyRepository } from './company.repository';
     {
       provide: COMPANY_REPOSITORY,
       useClass: CompanyRepository
+    },
+    {
+      provide: CATEGORY_EXPENSE_REPOSITORY,
+      useClass: CategoryExpenseRepository
     }
   ],
-  exports: [USER_REPOSITORY, COMPANY_REPOSITORY]
+  exports: [USER_REPOSITORY, COMPANY_REPOSITORY, CATEGORY_EXPENSE_REPOSITORY]
 })
 export class RepositoriesModule {}

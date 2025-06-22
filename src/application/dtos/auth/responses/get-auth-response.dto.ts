@@ -1,4 +1,4 @@
-export type GetAuthDTO = {
+export type GetAuthResponseDTO = {
   token: string;
   type: "Bearer"
 }

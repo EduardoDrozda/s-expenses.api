@@ -1,6 +1,7 @@
+import { BaseRequestDTO } from "@application/dtos/base";
 import { IsNotEmpty } from "class-validator";
 
-export class CreateUserDTO {
+export class CreateUserRequestDTO extends BaseRequestDTO {
   @IsNotEmpty()
   name: string;
 
@@ -12,6 +13,4 @@ export class CreateUserDTO {
 
   @IsNotEmpty()
   phone: string;
-
-  company_id: string;
 }

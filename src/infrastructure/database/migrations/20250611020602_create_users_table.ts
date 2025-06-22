@@ -13,9 +13,14 @@ export async function up(knex: Knex): Promise<void> {
     table.boolean('is_active').defaultTo(true);
     table.string('role').defaultTo('user');
 
-    table.uuid('company_id').notNullable().references('id').inTable('companies').onDelete('CASCADE');
+    table.uuid("company_id").notNullable().references("id").inTable("companies").onDelete("CASCADE");
 
+    table.uuid("created_by").nullable().references("id").inTable("users").onDelete("SET NULL")
+    table.uuid("updated_by").nullable().references("id").inTable("users").onDelete("SET NULL");
+    table.uuid("deleted_by").references("id").inTable("users").onDelete("SET NULL");
+    
     table.timestamps(true, true, false);
+    table.timestamp("deleted_at").nullable();
   });
 }
 

@@ -4,7 +4,7 @@ import { EnviromentService } from "@common/enviroment";
 import { LoggerService } from "@common/logger";
 import { NestFactory, Reflector } from "@nestjs/core";
 import { JwtGuard, JwtService } from "@common/jwt";
-import { ErrorFilterFilter } from "@infrastructure/filters";
+import { ErrorFilter } from "@infrastructure/filters";
 import { ResponseInterceptor } from "@infrastructure/interceptors";
 import { RolesGuard } from "@infrastructure/guards/role/role.guard";
 
@@ -66,7 +66,7 @@ export class Application {
     this.server.useGlobalGuards(new JwtGuard(jwtService, reflector));
     this.server.useGlobalGuards(new RolesGuard(reflector));
     
-    this.server.useGlobalFilters(new ErrorFilterFilter());
+    this.server.useGlobalFilters(new ErrorFilter());
     this.server.useGlobalInterceptors(new ResponseInterceptor());
   }
 }

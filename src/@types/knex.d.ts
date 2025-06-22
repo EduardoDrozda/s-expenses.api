@@ -23,5 +23,19 @@ declare module 'knex/types/tables' {
       created_at: string;
       updated_at: string;
     };
+    categories_expenses: {
+      id: string;
+      name: string;
+      description?: string;
+      icon?: string;
+      color?: string;
+      company_id: string;
+      created_at: string;
+      updated_at: string;
+      deleted_at?: string;
+      created_by: string;
+      updated_by?: string;
+      deleted_by?: string;
+    };
   }
 }

@@ -1,16 +1,15 @@
-import { CreateAuthDTO } from '@application/dtos/auth';
+import { CreateAuthRequestDTO } from '@application/dtos/auth/requests';
 import { CreateAuthUseCase } from '@application/use-cases/auth';
 import { IsPublic } from '@common/jwt';
 import { Body, Controller, Post } from '@nestjs/common';
 
 @Controller()
 export class AuthController {
-
   constructor(private readonly createAuthUseCase: CreateAuthUseCase) {}
 
   @IsPublic()
   @Post('/login')
-  async login(@Body() createAuthDto: CreateAuthDTO) {
+  async login(@Body() createAuthDto: CreateAuthRequestDTO) {
     return this.createAuthUseCase.execute(createAuthDto);
   }
 }

@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
-import { GetUserDTO } from "@application/dtos/user/get-user.dto";
+
 import {
   COMPANY_REPOSITORY,
   ICompanyRepository,
@@ -9,17 +9,18 @@ import {
 } from "@application/repositories";
 
 import { LoggerService } from "@common/logger";
-import { GetUserByIdDTO } from "@application/dtos/user";
+import { GetUserByIdRequestDTO } from "@application/dtos/user/requests";
+import { GetUserResponseDTO } from "@application/dtos/user/responses/get-user-response.dto";
 
 @Injectable()
-export class GetUserByIdUseCase implements IBaseUseCase<GetUserByIdDTO, GetUserDTO> {
+export class GetUserByIdUseCase implements IBaseUseCase<GetUserByIdRequestDTO, GetUserResponseDTO> {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
     @Inject(COMPANY_REPOSITORY) private readonly companyRepository: ICompanyRepository,
     private readonly loggerService: LoggerService
   ) { }
 
-  async execute(data: GetUserByIdDTO): Promise<GetUserDTO> {
+  async execute(data: GetUserByIdRequestDTO): Promise<GetUserResponseDTO> {
     const { company_id, id } = data;
     this.loggerService.log(`Executing GetUserByIdUseCase with data: ${JSON.stringify(data)}`);
 
@@ -46,7 +47,7 @@ export class GetUserByIdUseCase implements IBaseUseCase<GetUserByIdDTO, GetUserD
         name: company.name
       },
       created_at: user.created_at,
-      updated_at: user.updated_at
+      updated_at: user.updated_at,
     }
   }
 }

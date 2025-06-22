@@ -2,9 +2,11 @@ import { IBaseResponse } from '@infrastructure/interfaces';
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
 
 @Catch()
-export class ErrorFilterFilter<T extends HttpException> implements ExceptionFilter {
+export class ErrorFilter<T extends HttpException> implements ExceptionFilter {
   catch(exception: T, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
+
+    console.log(exception);
 
     const response = ctx.getResponse();
 
@@ -25,6 +27,7 @@ export class ErrorFilterFilter<T extends HttpException> implements ExceptionFilt
 
   private extractErrorMessage(exception: T): string[] {
     const response = exception.getResponse();
+    console.log('ErrorFilter: response:', response);
     
     if (typeof response === 'string') {
       return [response];

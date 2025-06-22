@@ -1,5 +1,5 @@
 import { Roles } from "@domain/enums";
-import { BaseModel } from "./base-model";
+import { AuditableModel, BaseModel } from "./base-model";
 
 export type UserModel = {
   name: string;
@@ -9,6 +9,6 @@ export type UserModel = {
   company_id: string;
   is_active?: boolean;
   role: Roles;
-} & BaseModel;
+} & AuditableModel;
 
 export type CreateUserInput = Omit<UserModel, 'id' | 'created_at' | 'updated_at'>;

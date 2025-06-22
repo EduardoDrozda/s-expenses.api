@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '@application/dtos/user';
+import { CreateUserRequestDTO } from '@application/dtos/user/requests';
 import { CreateUserUseCase, GetUserByIdUseCase } from '@application/use-cases/user';
 import { RolesEnum } from '@domain/enums';
 import { LoggedUser, LoggedUserInfo } from '@infrastructure/decorators/logged-user';
@@ -24,12 +24,16 @@ export class UserController {
 
   @Roles(RolesEnum.ADMIN)
   @Post()
-  async createUser(@LoggedUser() loggerUser: LoggedUserInfo, @Body() createUserDTO: CreateUserDTO) {
+  async createUser(
+    @LoggedUser() loggerUser: LoggedUserInfo,
+    @Body() createUserRequestDTO: CreateUserRequestDTO
+  ) {
     const { company_id } = loggerUser;
 
     return this.createUserUseCase.execute({
-      ...createUserDTO,
-      company_id
+      ...createUserRequestDTO,
+      company_id,
+      created_by: loggerUser.id
     });
   }
 }

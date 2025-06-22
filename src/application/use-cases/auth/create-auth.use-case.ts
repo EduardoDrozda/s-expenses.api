@@ -1,13 +1,14 @@
 import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
-import { CreateAuthDTO, GetAuthDTO } from "@application/dtos/auth";
 import { IUserRepository, USER_REPOSITORY } from "@application/repositories";
 import { HashService } from "@common/hash";
 import { JwtService } from "@common/jwt";
 import { LoggerService } from "@common/logger";
+import { CreateAuthRequestDTO } from "@application/dtos/auth/requests";
+import { GetAuthResponseDTO } from "@application/dtos/auth/responses";
 
 @Injectable()
-export class CreateAuthUseCase implements IBaseUseCase<CreateAuthDTO, GetAuthDTO> {
+export class CreateAuthUseCase implements IBaseUseCase<CreateAuthRequestDTO, GetAuthResponseDTO> {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
     private readonly hashService: HashService,
@@ -15,7 +16,7 @@ export class CreateAuthUseCase implements IBaseUseCase<CreateAuthDTO, GetAuthDTO
     private readonly loggerService: LoggerService
   ) { }
 
-  async execute(data: CreateAuthDTO): Promise<GetAuthDTO> {
+  async execute(data: CreateAuthRequestDTO): Promise<GetAuthResponseDTO> {
     this.loggerService.context = CreateAuthUseCase.name;
     this.loggerService.log("Executing...");
 
