@@ -18,17 +18,17 @@ export class DeleteByIdExpenseCategoryUseCase implements IBaseUseCase<DeleteById
 
     const expenseCategory = await this
       .categoryExpenseRepository
-      .findById(data.id, data.company_id!);
+      .findById(data.id, data.companyId!);
 
     if (!expenseCategory) {
-      this.loggerService.warn(`Expense category with ID ${data.id} not found for company ID ${data.company_id}`);
+      this.loggerService.warn(`Expense category with ID ${data.id} not found for company ID ${data.companyId}`);
       throw new NotFoundException(`Expense category with ID ${data.id} not found.`);
     }
 
     await this.categoryExpenseRepository.delete({
       id: data.id,
-      company_id: data.company_id!,
-      deleted_by: data.deleted_by,
+      companyId: data.companyId!,
+      deletedById: data.deletedBy!,
     });
   }
 }

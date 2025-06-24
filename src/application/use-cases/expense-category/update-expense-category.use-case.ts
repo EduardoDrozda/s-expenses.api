@@ -19,14 +19,23 @@ export class UpdateExpenseCategoryUseCase implements IBaseUseCase<UpdateExpenseC
 
     const existingCategory = await this
       .categoryExpenseRepository
-      .findById(request.id, request.company_id);
+      .findById(request.id, request.companyId);
 
     if (!existingCategory) {
-      this.loggerService.warn(`Expense category with ID ${request.id} not found for company ID ${request.company_id}`);
+      this.loggerService.warn(`Expense category with ID ${request.id} not found for company ID ${request.companyId}`);
       throw new NotFoundException(`Expense category with ID ${request.id} not found.`);
     }
 
-    const result = await this.categoryExpenseRepository.update(request);
+    const result = await this.categoryExpenseRepository.update({
+      id: request.id,
+      name: request.name!,
+      description: request.description!,
+      icon: request.icon!,
+      color: request.color!,
+      companyId: request.companyId,
+      updatedById: request.updatedBy
+    });
+
     this.loggerService.log(`Expense category with ID ${request.id} updated successfully.`);
 
     return result;

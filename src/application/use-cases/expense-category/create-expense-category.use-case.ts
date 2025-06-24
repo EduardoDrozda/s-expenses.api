@@ -7,21 +7,21 @@ import { GetExpenseCategoryResponseDto } from "@application/dtos/expense-categor
 
 @Injectable()
 export class CreateExpenseCategoryUseCase implements IBaseUseCase<CreateExpenseCategoryRequestDto, GetExpenseCategoryResponseDto> {
-  
+
   constructor(
     @Inject(CATEGORY_EXPENSE_REPOSITORY) private readonly categoryExpenseRepository: ICategoryExpenseRepository,
     private readonly loggerService: LoggerService
-  ) { 
+  ) {
     this.loggerService.context = this.constructor.name;
   }
 
   async execute(data: CreateExpenseCategoryRequestDto): Promise<GetExpenseCategoryResponseDto> {
     this.loggerService.log(`Creating expense category with data: ${JSON.stringify(data)}`);
 
-    const existingCategory = await this.categoryExpenseRepository.findByName(data.name, data.company_id);
+    const existingCategory = await this.categoryExpenseRepository.findByName(data.name, data.companyId);
 
     if (existingCategory) {
-      this.loggerService.warn(`Expense category with name "${data.name}" already exists for company ID ${data.company_id}`);
+      this.loggerService.warn(`Expense category with name "${data.name}" already exists for company ID ${data.companyId}`);
       throw new ConflictException(`Expense category with name "${data.name}" already exists.`);
     }
 
@@ -30,8 +30,8 @@ export class CreateExpenseCategoryUseCase implements IBaseUseCase<CreateExpenseC
       description: data.description,
       icon: data.icon,
       color: data.color,
-      company_id: data.company_id,
-      created_by: data.created_by
-    }); 
+      companyId: data.companyId,
+      createdById: data.createdBy
+    });
   }
 }

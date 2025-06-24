@@ -22,15 +22,15 @@ export class ExpenseCategoryController {
   async create(@LoggedUser() loggerUser: LoggedUserInfo, @Body() data: CreateExpenseCategoryRequestDto) {
     return this.createExpenseCategoryUseCase.execute({
       ...data,
-      company_id: loggerUser.company_id,
-      created_by: loggerUser.id
+      companyId: loggerUser.companyId,
+      createdBy: loggerUser.id
     });
   }
 
   @Get()
   async findAll(@LoggedUser() loggerUser: LoggedUserInfo, @Query() searchParams: GetPaginationBaseDto) {
     return this.getExpenseCategoryUseCase.execute({
-      company_id: loggerUser.company_id,
+      companyId: loggerUser.companyId,
       params: searchParams
     });
   }
@@ -40,7 +40,7 @@ export class ExpenseCategoryController {
     console.log('Finding expense category by ID:', id);
     return this.getByIdExpenseCategoryUseCase.execute({
       id,
-      company_id: loggerUser.company_id
+      companyId: loggerUser.companyId
     });
   }
 
@@ -53,8 +53,8 @@ export class ExpenseCategoryController {
     return this.updateExpenseCategoryUseCase.execute({
       ...data,
       id,
-      company_id: loggerUser.company_id,
-      updated_by: loggerUser.id
+      companyId: loggerUser.companyId,
+      updatedBy: loggerUser.id
     });
   }
 
@@ -62,8 +62,8 @@ export class ExpenseCategoryController {
   async delete(@LoggedUser() loggerUser: LoggedUserInfo, @Param('id') id: string) {
     return this.deleteExpenseCategoryUseCase.execute({
       id,
-      company_id: loggerUser.company_id,
-      deleted_by: loggerUser.id
+      companyId: loggerUser.companyId,
+      deletedBy: loggerUser.id,
     });
   }
 }

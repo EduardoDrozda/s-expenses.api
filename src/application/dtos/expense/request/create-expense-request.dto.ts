@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsArray, IsDateString, IsNotEmpty, IsNumber, IsUUID } from "class-validator";
+import { IsArray, IsDateString, IsNotEmpty, IsNumber, IsOptional, IsUUID } from "class-validator";
 
 export class CreateExpenseRequestDto {
   @IsNotEmpty()
@@ -14,6 +14,20 @@ export class CreateExpenseRequestDto {
   @Type(() => Number)
   @IsNumber()
   amount: number;
+
+  @IsNotEmpty()
+  description: string;
+
+  @IsUUID()
+  costCenterId?: string;
+
+  @IsUUID()
+  @IsOptional()
+  groupId?: string;
+
+  @IsUUID()
+  @IsOptional()
+  projectId?: string;
 
   files: Express.Multer.File[];
 }

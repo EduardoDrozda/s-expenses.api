@@ -23,7 +23,7 @@ export class CreateAuthUseCase implements IBaseUseCase<CreateAuthRequestDTO, Get
     const { email, password } = data;
     const existingUser = await this.userRepository.findByEmail(email);
 
-    if (!existingUser || !(await this.hashService.compare(password, existingUser.password))) {
+    if (!existingUser || !(await this.hashService.compare(password, existingUser.password!))) {
       this.loggerService.error("Invalid email or password");
       throw new UnauthorizedException("Invalid email or password");
     }
@@ -32,7 +32,7 @@ export class CreateAuthUseCase implements IBaseUseCase<CreateAuthRequestDTO, Get
       .jwtService
       .sign({
         id: existingUser.id,
-        company_id: existingUser.company_id,
+        companyId: existingUser.companyId,
         role: existingUser.role
       })
 

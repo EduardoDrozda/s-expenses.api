@@ -19,10 +19,10 @@ export class GetByIdExpenseCategoryUseCase implements IBaseUseCase<GetByIdExpens
 
     const expenseCategory = await this
       .categoryExpenseRepository
-      .findById(request.id, request.company_id);
+      .findById(request.id, request.companyId);
 
     if (!expenseCategory) {
-      this.loggerService.warn(`Expense category with ID ${request.id} not found for company ID ${request.company_id}`);
+      this.loggerService.warn(`Expense category with ID ${request.id} not found for company ID ${request.companyId}`);
       throw new NotFoundException(`Expense category with ID ${request.id} not found.`);
     }
 

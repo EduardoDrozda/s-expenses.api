@@ -21,11 +21,11 @@ export class GetUserByIdUseCase implements IBaseUseCase<GetUserByIdRequestDTO, G
   ) { }
 
   async execute(data: GetUserByIdRequestDTO): Promise<GetUserResponseDTO> {
-    const { company_id, id } = data;
+    const { companyId, id } = data;
     this.loggerService.log(`Executing GetUserByIdUseCase with data: ${JSON.stringify(data)}`);
 
     const userPromise = this.userRepository.findById(id);
-    const companyPromise = this.companyRepository.findById(company_id);
+    const companyPromise = this.companyRepository.findById(companyId);
 
     const [user, company] = await Promise.all([userPromise, companyPromise]);
 
@@ -39,15 +39,15 @@ export class GetUserByIdUseCase implements IBaseUseCase<GetUserByIdRequestDTO, G
       name: user.name,
       email: user.email,
       phone: user.phone,
-      is_active: user.is_active,
-      company_id: user.company_id,
+      is_active: user.isActive,
+      companyId: user.companyId,
       role: user.role,
       company: {
         id: company.id,
         name: company.name
       },
-      created_at: user.created_at,
-      updated_at: user.updated_at,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     }
   }
 }

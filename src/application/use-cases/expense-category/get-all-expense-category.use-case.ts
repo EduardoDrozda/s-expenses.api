@@ -18,10 +18,10 @@ export class GetAllExpenseCategoryUseCase
   }
 
   async execute(data: GetExpenseCategoryRequestDto) {
-    const { company_id, params } = data;
-    this.loggerService.log(`Fetching all expense categories for company_id: ${company_id}`);
+    const { companyId, params } = data;
+    this.loggerService.log(`Fetching all expense categories for companyId: ${companyId}`);
 
-    const categories = await this.categoryExpenseRepository.findAllByCompanyId(company_id);
+    const categories = await this.categoryExpenseRepository.findAllByCompanyId(companyId);
 
     return PaginationHelper
       .paginate<GetExpenseCategoryResponseDto>(categories, params.page!, params.limit!);

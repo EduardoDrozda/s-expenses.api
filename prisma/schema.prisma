@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+model Company {
+  id      String @id @default(cuid())
+  name    String
+  email   String
+  phone   String
+  address String
+
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+  User            User[]
+  CategoryExpense CategoryExpense[]
+
+  @@map("companies")
+}
+
+model User {
+  id       String  @id @default(cuid())
+  name     String
+  email    String  @unique
+  phone    String
+  isActive Boolean @default(true) @map("is_active")
+  role     String  @default("user")
+  password String? @map("password")
+
+  companyId String  @map("company_id")
+  company   Company @relation(fields: [companyId], references: [id])
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  createdById  String?  @map("created_by")
+  createdBy    User?    @relation("UserCreatedBy", fields: [createdById], references: [id])
+  createdUsers User[]   @relation("UserCreatedBy")
+
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  updatedById  String?  @map("updated_by")
+  updatedBy    User?    @relation("UserUpdatedBy", fields: [updatedById], references: [id])
+  updatedUsers User[]   @relation("UserUpdatedBy")
+
+  deletedAt    DateTime? @map("deleted_at")
+  deletedById  String?   @map("deleted_by")
+  deletedBy    User?     @relation("UserDeletedBy", fields: [deletedById], references: [id])
+  deletedUsers User[]    @relation("UserDeletedBy")
+
+  createdRecords CategoryExpense[] @relation("UserCreatedBy")
+  updatedRecords CategoryExpense[] @relation("UserUpdatedBy")
+  deletedRecords CategoryExpense[] @relation("UserDeletedBy")
+
+  @@map("users")
+}
+
+model CategoryExpense {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  icon        String?
+  color       String?
+
+  companyId String  @map("company_id")
+  company   Company @relation(fields: [companyId], references: [id])
+
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  createdById String?  @map("created_by")
+  createdBy   User?    @relation("UserCreatedBy", fields: [createdById], references: [id])
+
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  updatedById String?  @map("updated_by")
+  updatedBy   User?    @relation("UserUpdatedBy", fields: [updatedById], references: [id])
+
+  deletedAt   DateTime? @map("deleted_at")
+  deletedById String?   @map("deleted_by")
+  deletedBy   User?     @relation("UserDeletedBy", fields: [deletedById], references: [id])
+
+  @@map("category_expenses")
+}

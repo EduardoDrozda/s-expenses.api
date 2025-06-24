@@ -6,72 +6,89 @@ import {
   UpdateCategoryExpensesInput,
   DeleteCategoryExpensesInput
 } from "@domain/models";
+import { DatabaseService } from "@infrastructure/database/database.service";
 
-import { knex } from "@infrastructure/database";
 import { Injectable } from "@nestjs/common";
-import { Knex } from "knex";
 
 @Injectable()
 export class CategoryExpenseRepository implements ICategoryExpenseRepository {
-  private readonly database: Knex = knex;
+  constructor(private readonly databaseService: DatabaseService) { }
 
   async create(data: CreateCategoryExpensesInput): Promise<CategoryExpensesModel> {
-    const { name, company_id, color, description, icon, created_by } = data;
-
-    const [categoryExpense] = await this.database('categories_expenses')
-      .insert({
+    const { name, color, description, icon, companyId, createdById } = data;
+    return this.databaseService.categoryExpense.create({
+      data: {
         name,
-        company_id,
         color,
         description,
         icon,
-        created_by: created_by!,
-      })
-      .returning('*');
-
-    return categoryExpense
+        companyId,
+        createdById,
+      }
+    });
   }
 
-  findAllByCompanyId(company_id: string): Promise<CategoryExpensesModel[]> {
-    return this.database('categories_expenses')
-      .where({ company_id })
-      .whereNull('deleted_at')
-      .select('*');
+  findAllByCompanyId(companyId: string): Promise<CategoryExpensesModel[]> {
+    return this.databaseService.categoryExpense.findMany({
+      where: {
+        companyId: companyId,
+        deletedAt: null,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
 
-  findById(id: string, company_id: string): Promise<CategoryExpensesModel | undefined> {
-    return this.database('categories_expenses')
-      .where({ id, company_id })
-      .whereNull('deleted_at')
-      .first();
+  findById(id: string, companyId: string): Promise<CategoryExpensesModel | null> {
+    return this.databaseService.categoryExpense.findFirst({
+      where: {
+        id,
+        companyId: companyId,
+      },
+    });
   }
 
-  findByName(name: string, company_id: string): Promise<CategoryExpensesModel | undefined> {
-    return this.database('categories_expenses')
-      .where({ name, company_id })
-      .whereNull('deleted_at')
-      .first();
+  findByName(name: string, companyId: string): Promise<CategoryExpensesModel | null> {
+    return this.databaseService.categoryExpense.findFirst({
+      where: {
+        name: {
+          equals: name,
+          mode: 'insensitive',
+        },
+        companyId: companyId,
+      },
+    });
   }
 
   async update(data: UpdateCategoryExpensesInput): Promise<CategoryExpensesModel> {
-    const { name, color, description, icon, updated_by } = data;
+    const { name, color, description, icon, updatedById } = data;
 
-    const [categoryExpense] = await this.database('categories_expenses')
-      .where({ id: data.id, company_id: data.company_id })
-      .update({ name, color, description, icon, updated_by: updated_by! })
-      .returning('*')
-
-    return categoryExpense;
+    return this.databaseService.categoryExpense.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        name,
+        color,
+        description,
+        icon,
+        updatedById,
+      },
+    })
   }
 
   async delete(data: DeleteCategoryExpensesInput): Promise<void> {
-    const { id, company_id, deleted_by } = data;
+    const { id, deletedById } = data;
 
-    await this.database('categories_expenses')
-      .where({ id, company_id })
-      .update({
-        deleted_at: new Date().toISOString(),
-        deleted_by: deleted_by!,
-      });
+    await this.databaseService.categoryExpense.update({
+      where: {
+        id,
+      },
+      data: {
+        deletedAt: new Date(),
+        deletedById,
+      },
+    });
   }
 }

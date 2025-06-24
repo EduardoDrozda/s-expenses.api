@@ -16,9 +16,9 @@ export abstract class PaginationHelper {
       total,
       page,
       limit,
-      total_pages: totalPages,
-      has_next_page: page < totalPages,
-      has_previous_page: page > 1
+      totalPages: totalPages,
+      hasNextPage: page < totalPages,
+      hasPreviousPage: page > 1
     };
   }
 }

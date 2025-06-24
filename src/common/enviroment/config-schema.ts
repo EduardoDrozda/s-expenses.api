@@ -12,6 +12,7 @@ export const envSchema = z.object({
   DB_USER: z.string(),
   DB_PASSWORD: z.string(),
   DB_NAME: z.string(),
+  DB_URL: z.string(),
   HASH_ROUNDS: z.coerce.number(),
   STORAGE_PROVIDER: z.enum(['local', 's3', 'gcs']).default('local'),
   STORAGE_ENDPOINT: z.string().default('http://localhost:9000'),

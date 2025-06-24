@@ -7,4 +7,4 @@ export type CompanyModel = {
   address: string;
 } & BaseModel
 
-export type CreateCompanyInput = Omit<CompanyModel, 'id' | 'created_at' | 'updated_at'>;
+export type CreateCompanyInput = Omit<CompanyModel, 'id' | 'createdAt' | 'updatedAt'>;

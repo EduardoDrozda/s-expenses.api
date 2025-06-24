@@ -30,11 +30,19 @@ export class CreateUserUseCase implements IBaseUseCase<CreateUserRequestDTO, voi
     await this.userRepository.create({
       name: data.name,
       email: data.email,
-      password: await this.hashService.hash(data.password),
       phone: data.phone,
-      company_id: data.company_id!,
+      password: await this.hashService.hash(data.password),
+      company: {
+        connect: {
+          id: data.companyId!,
+        }
+      },
+      createdBy: {
+        connect: {
+          id: data.createdBy!,
+        }
+      },
       role: RolesEnum.USER,
-      created_by: data.created_by,
     });
   }
 }

@@ -16,7 +16,7 @@ export class UpdateExpenseCategoryRequestDto {
   @IsOptional()
   icon?: string;
 
-  company_id: string;
+  companyId: string;
 
-  updated_by: string;
+  updatedBy: string;
 }

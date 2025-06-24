@@ -1,13 +1,13 @@
 export type BaseResponseDto = {
   id: string;
   
-  created_at: string;
-  updated_at: string;
-  deleted_at?: string | null;
-  deleted_by?: string | null;
-  created_by?: string | null;
-  updated_by?: string | null;
-  company_id?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: string | null;
+  deletedBy?: string | null;
+  createdBy?: string | null;
+  updatedBy?: string | null;
+  companyId?: string;
 }
 
 export type BaseResponseWithPaginationDto<T> = {
@@ -15,7 +15,7 @@ export type BaseResponseWithPaginationDto<T> = {
   total: number;
   page: number;
   limit: number;
-  total_pages: number;
-  has_next_page?: boolean;
-  has_previous_page?: boolean;
+  totalPages: number;
+  hasNextPage?: boolean;
+  hasPreviousPage?: boolean;
 };

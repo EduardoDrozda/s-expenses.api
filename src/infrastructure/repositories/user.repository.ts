@@ -1,30 +1,32 @@
 import { IUserRepository } from "@application/repositories";
-import { UserModel, CreateUserInput } from "@domain/models";
-import { knex } from "@infrastructure/database";
+import { CreateUserInput, UserModel } from "@domain/models";
+import { DatabaseService } from "@infrastructure/database/database.service";
 import { Injectable } from "@nestjs/common";
-import { Knex } from "knex";
 
 @Injectable()
 export class UserRepository implements IUserRepository {
-  private readonly database: Knex = knex;
-  
-  async findByEmail(email: string): Promise<UserModel | undefined> {
-    return await this.database("users")
-      .where({ email })
-      .first();
-  }
-  
-  async create(user: CreateUserInput): Promise<UserModel> {
-    const [createdUser] = await this.database<UserModel>("users")
-      .insert(user)
-      .returning("*");
-      
-    return createdUser;
+  constructor(private readonly databaseService: DatabaseService) { }
+
+  async findByEmail(email: string): Promise<UserModel | null> {
+    return this.databaseService.user.findFirst({
+      where: {
+        email: {
+          equals: email,
+          mode: "insensitive",
+        }
+      },
+    });
   }
 
-  async findById(id: string): Promise<UserModel | undefined> {
-    return await this.database("users")
-      .where({ id })
-      .first();
+  async create(user: CreateUserInput): Promise<UserModel> {
+    return this.databaseService.user.create({
+      data: user,
+    });
+  }
+
+  async findById(id: string): Promise<UserModel | null> {
+    return this.databaseService.user.findFirst({
+      where: { id },
+    });
   }
 }

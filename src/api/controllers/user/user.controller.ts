@@ -14,11 +14,11 @@ export class UserController {
 
   @Get("/me")
   async getLoggedUser(@LoggedUser() loggedUser: LoggedUserInfo) {
-    const { id, company_id } = loggedUser;
+    const { id, companyId } = loggedUser;
 
     return this.getUserByIdUseCase.execute({
       id,
-      company_id
+      companyId
     });
   }
 
@@ -28,12 +28,12 @@ export class UserController {
     @LoggedUser() loggerUser: LoggedUserInfo,
     @Body() createUserRequestDTO: CreateUserRequestDTO
   ) {
-    const { company_id } = loggerUser;
+    const { companyId } = loggerUser;
 
     return this.createUserUseCase.execute({
       ...createUserRequestDTO,
-      company_id,
-      created_by: loggerUser.id
+      companyId,
+      createdBy: loggerUser.id
     });
   }
 }

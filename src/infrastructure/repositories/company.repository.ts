@@ -1,16 +1,15 @@
 import { ICompanyRepository } from "@application/repositories";
-import { CompanyModel } from "@domain/models";
-import { knex } from "@infrastructure/database";
+import { DatabaseService } from "@infrastructure/database/database.service";
 import { Injectable } from "@nestjs/common";
-import { Knex } from "knex";
+import { Company } from "@prisma/client";
 
 @Injectable()
 export class CompanyRepository implements ICompanyRepository {
-  private readonly database: Knex = knex;
+  constructor(private readonly databaseService: DatabaseService) {}
 
-  async findById(id: string): Promise<CompanyModel | undefined> {
-    return await this.database("companies")
-      .where({ id })
-      .first();
+  async findById(id: string): Promise<Company | null> {
+    return this.databaseService.company.findUnique({
+      where: { id },
+    });
   }
 }

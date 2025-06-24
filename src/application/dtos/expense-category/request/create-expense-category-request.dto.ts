@@ -5,16 +5,16 @@ export class CreateExpenseCategoryRequestDto {
   name: string;
 
   @IsOptional()
-  description?: string;
+  description: string;
 
   @IsOptional()
-  icon?: string;
+  icon: string;
 
   @IsOptional()
   @IsHexColor()
-  color?: string;
+  color: string;
   
-  company_id: string;
+  companyId: string;
 
-  created_by: string;
+  createdBy: string;
 }

@@ -2,7 +2,7 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
 export type LoggedUserInfo = {
   id: string;
-  company_id: string;
+  companyId: string;
   role: string;
 };
 

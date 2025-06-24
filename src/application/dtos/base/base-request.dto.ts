@@ -1,10 +1,10 @@
 import { IsOptional } from "class-validator";
 
 export class BaseRequestDTO {
-  created_by?: string;
-  updated_by?: string;
-  deleted_by?: string | null;
-  company_id?: string;
+  createdBy?: string | null;
+  updatedBy?: string | null;
+  deletedBy?: string | null;
+  companyId: string | null;
 }
 
 export class GetPaginationBaseDto {
