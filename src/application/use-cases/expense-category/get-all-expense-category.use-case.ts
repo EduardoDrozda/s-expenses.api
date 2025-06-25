@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
-import { CATEGORY_EXPENSE_REPOSITORY, ICategoryExpenseRepository } from "@application/repositories";
+import { CATEGORY_EXPENSE_REPOSITORY, ICategoryExpenseRepository } from "@domain/repositories";
 import { LoggerService } from "@common/logger";
 import { GetExpenseCategoryResponseDto } from "@application/dtos/expense-category/response";
 import { BaseResponseWithPaginationDto } from "@application/dtos/base/requests";

@@ -1,4 +1,4 @@
-import { ICategoryExpenseRepository } from "@application/repositories";
+import { ICategoryExpenseRepository } from "@domain/repositories";
 
 import {
   CreateCategoryExpensesInput,

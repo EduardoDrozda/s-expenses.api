@@ -2,7 +2,7 @@ import { ConflictException, Inject, Injectable, NotImplementedException } from "
 import { IBaseUseCase } from "../IBase.use-case";
 import { CreateCostCenterRequestDto } from "@application/dtos/cost-center/request";
 
-import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@application/repositories";
+import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@domain/repositories";
 import { LoggerService } from "@common/logger";
 import { GetCostCenterResponseDto } from "@application/dtos/cost-center/response";
 

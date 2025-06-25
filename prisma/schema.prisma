@@ -25,6 +25,8 @@ model Company {
   User            User[]
   CategoryExpense CategoryExpense[]
   CostCenter      CostCenter[]
+  Group           Group[]
+  Project         Project[]
 
   @@map("companies")
 }
@@ -103,8 +105,8 @@ model CategoryExpense {
 }
 
 model CostCenter {
-  id   String @id @default(cuid())
-  name String
+  id          String  @id @default(cuid())
+  name        String
   description String?
 
   companyId String  @map("company_id")
@@ -121,8 +123,7 @@ model CostCenter {
   deletedAt   DateTime? @map("deleted_at")
   deletedById String?   @map("deleted_by")
   deletedBy   User?     @relation("CostCenterDeletedBy", fields: [deletedById], references: [id])
-  groups      Group[]
-  expenses    Expense[]
+  Expense     Expense[]
 
   @@map("cost_centers")
 }
@@ -132,8 +133,8 @@ model Group {
   name        String
   description String?
 
-  costCenterId String     @map("cost_center_id")
-  costCenter   CostCenter @relation(fields: [costCenterId], references: [id])
+  companyId String  @map("company_id")
+  company   Company @relation(fields: [companyId], references: [id])
 
   createdAt   DateTime @default(now()) @map("created_at")
   createdById String?  @map("created_by")
@@ -147,19 +148,18 @@ model Group {
   deletedById String?   @map("deleted_by")
   deletedBy   User?     @relation("GroupDeletedBy", fields: [deletedById], references: [id])
 
-  expenses Expense[]
-  projects Project[]
+  Expense Expense[]
 
-  @@map("cost_center_groups")
+  @@map("groups")
 }
 
 model Project {
-  id                String  @id @default(cuid())
-  name              String
-  description       String?
+  id          String  @id @default(cuid())
+  name        String
+  description String?
 
-  costCenterGroupId String  @map("cost_center_group_id")
-  costCenterGroup   Group   @relation(fields: [costCenterGroupId], references: [id])
+  companyId String  @map("company_id")
+  company   Company @relation(fields: [companyId], references: [id])
 
   createdAt   DateTime @default(now()) @map("created_at")
   createdById String?  @map("created_by")
@@ -173,7 +173,7 @@ model Project {
   deletedById String?   @map("deleted_by")
   deletedBy   User?     @relation("ProjectDeletedBy", fields: [deletedById], references: [id])
 
-  expenses    Expense[]
+  expenses Expense[]
 
   @@map("projects")
 }

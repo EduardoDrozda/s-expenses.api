@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
 import { UpdateCostCenterRequestDto } from "@application/dtos/cost-center/request";
 import { GetCostCenterResponseDto } from "@application/dtos/cost-center/response";
-import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@application/repositories";
+import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@domain/repositories";
 import { LoggerService } from "@common/logger";
 
 @Injectable()

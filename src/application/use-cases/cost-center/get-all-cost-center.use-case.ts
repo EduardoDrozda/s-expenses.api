@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
-import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@application/repositories";
+import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@domain/repositories";
 import { GetCostCenterRequestDto } from "@application/dtos/cost-center/request/get-cost-center.request.dto";
 import { BaseResponseWithPaginationDto } from "@application/dtos/base/requests";
 import { LoggerService } from "@common/logger";

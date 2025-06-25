@@ -1,4 +1,4 @@
-import { IUserRepository } from "@application/repositories";
+import { IUserRepository } from "@domain/repositories";
 import { CreateUserInput, UserModel } from "@domain/models";
 import { DatabaseService } from "@infrastructure/database/database.service";
 import { Injectable } from "@nestjs/common";

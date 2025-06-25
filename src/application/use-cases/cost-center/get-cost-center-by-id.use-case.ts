@@ -1,5 +1,5 @@
 import { GetByIdRequestDto } from "@application/dtos/base/requests";
-import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@application/repositories";
+import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@domain/repositories";
 import { LoggerService } from "@common/logger";
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";

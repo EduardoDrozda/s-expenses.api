@@ -1,4 +1,4 @@
-import { IUserRepository, USER_REPOSITORY } from "@application/repositories";
+import { IUserRepository, USER_REPOSITORY } from "@domain/repositories";
 import { LoggerService } from "@common/logger";
 import { ConflictException, Inject, Injectable } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";

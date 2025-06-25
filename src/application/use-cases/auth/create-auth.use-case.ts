@@ -1,6 +1,6 @@
 import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
-import { IUserRepository, USER_REPOSITORY } from "@application/repositories";
+import { IUserRepository, USER_REPOSITORY } from "@domain/repositories";
 import { HashService } from "@common/hash";
 import { JwtService } from "@common/jwt";
 import { LoggerService } from "@common/logger";

@@ -1,6 +1,6 @@
 import { IBaseUseCase } from "../IBase.use-case";
 import { ConflictException, Inject, Injectable } from "@nestjs/common";
-import { CATEGORY_EXPENSE_REPOSITORY, ICategoryExpenseRepository } from "@application/repositories";
+import { CATEGORY_EXPENSE_REPOSITORY, ICategoryExpenseRepository } from "@domain/repositories";
 import { LoggerService } from "@common/logger";
 import { CreateExpenseCategoryRequestDto } from "@application/dtos/expense-category/request";
 import { GetExpenseCategoryResponseDto } from "@application/dtos/expense-category/response";

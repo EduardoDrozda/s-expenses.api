@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ICostCenterRepository } from "@application/repositories";
+import { ICostCenterRepository } from "@domain/repositories";
 import { DatabaseService } from "@infrastructure/database/database.service";
 import { CostCenterModel, UpdateCostCenterInput, DeleteCostCenterInput, CreateCostCenterInput } from "@domain/models";
 
@@ -17,13 +17,6 @@ export class CostCenterRepository implements ICostCenterRepository {
     return this.databaseService.costCenter.findMany({
       where: {
         companyId
-      },
-      include: {
-        groups: {
-          include: {
-            projects: true
-          }
-        }
       },
       orderBy: {
         createdAt: 'desc',

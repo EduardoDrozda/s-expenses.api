@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
 import { UpdateExpenseCategoryRequestDto } from "@application/dtos/expense-category/request";
-import { CATEGORY_EXPENSE_REPOSITORY, ICategoryExpenseRepository } from "@application/repositories";
+import { CATEGORY_EXPENSE_REPOSITORY, ICategoryExpenseRepository } from "@domain/repositories";
 import { LoggerService } from "@common/logger";
 import { GetExpenseCategoryResponseDto } from "@application/dtos/expense-category/response";
 

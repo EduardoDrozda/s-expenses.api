@@ -6,7 +6,7 @@ import {
   ICompanyRepository,
   IUserRepository,
   USER_REPOSITORY
-} from "@application/repositories";
+} from "@domain/repositories";
 
 import { LoggerService } from "@common/logger";
 import { GetUserByIdRequestDTO } from "@application/dtos/user/requests";
