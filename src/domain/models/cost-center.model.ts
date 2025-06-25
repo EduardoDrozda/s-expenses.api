@@ -5,6 +5,6 @@ export type CostCenterModel = CostCenter;
 
 export type CreateCostCenterInput = Prisma.CostCenterCreateInput;
 
-export type UpdateCostCenterInput = Pick<CostCenterModel, 'id' | 'name' | 'companyId' | 'updatedById'>;
+export type UpdateCostCenterInput = Pick<CostCenterModel, 'id' | 'name' | 'companyId' | 'updatedById' | 'description'>;
 
 export type DeleteCostCenterInput = Pick<CostCenterModel, 'id' | 'companyId' | 'deletedById'>;

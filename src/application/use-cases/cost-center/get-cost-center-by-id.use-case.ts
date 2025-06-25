@@ -1,18 +1,18 @@
 import { GetByIdRequestDto } from "@application/dtos/base/requests";
-import { GetCenterCostDto } from "@application/dtos/cost-center/response/get-center-cost-dto";
 import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@application/repositories";
 import { LoggerService } from "@common/logger";
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
+import { GetCostCenterResponseDto } from "@application/dtos/cost-center/response";
 
 @Injectable()
-export class GetCostCenterByIdUseCase implements IBaseUseCase<GetByIdRequestDto, GetCenterCostDto>{
+export class GetCostCenterByIdUseCase implements IBaseUseCase<GetByIdRequestDto, GetCostCenterResponseDto>{
   constructor(
    @Inject(COST_CENTER_REPOSITORY) private readonly costCenterRepository: ICostCenterRepository,
    private readonly logger: LoggerService
   ) {}
 
-  async execute(data: GetByIdRequestDto): Promise<GetCenterCostDto> {
+  async execute(data: GetByIdRequestDto): Promise<GetCostCenterResponseDto> {
     this.logger.log(`Get cost center by id: ${data.id}`);
 
     const costCenter = await this.costCenterRepository.findById(data.id, data.companyId);

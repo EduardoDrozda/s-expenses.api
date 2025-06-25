@@ -1,18 +1,19 @@
 import { ConflictException, Inject, Injectable, NotImplementedException } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
 import { CreateCostCenterRequestDto } from "@application/dtos/cost-center/request";
-import { GetCenterCostDto } from "@application/dtos/cost-center/response/get-center-cost-dto";
+
 import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@application/repositories";
 import { LoggerService } from "@common/logger";
+import { GetCostCenterResponseDto } from "@application/dtos/cost-center/response";
 
 @Injectable()
-export class CreateCostCenterUseCase implements IBaseUseCase<CreateCostCenterRequestDto, GetCenterCostDto> {
+export class CreateCostCenterUseCase implements IBaseUseCase<CreateCostCenterRequestDto, GetCostCenterResponseDto> {
   constructor(
     @Inject(COST_CENTER_REPOSITORY) private readonly costCenterRepository: ICostCenterRepository,
     private readonly loggerService: LoggerService
   ) {}
   
-  async execute(data: CreateCostCenterRequestDto): Promise<GetCenterCostDto> {
+  async execute(data: CreateCostCenterRequestDto): Promise<GetCostCenterResponseDto> {
     this.loggerService.log(`Creating cost center with data: ${JSON.stringify(data)}`);
 
     const existingCostCenter = await this.costCenterRepository.findByName(data.name, data.companyId!);
@@ -39,6 +40,7 @@ export class CreateCostCenterUseCase implements IBaseUseCase<CreateCostCenterReq
     return {
       id: costCenter.id,
       name: costCenter.name,
+      description: costCenter.description,
       createdAt: costCenter.createdAt,
       updatedAt: costCenter.updatedAt,
     };

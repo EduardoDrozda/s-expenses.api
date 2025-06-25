@@ -50,7 +50,7 @@ export class CostCenterRepository implements ICostCenterRepository {
   }
 
   update(data: UpdateCostCenterInput): Promise<CostCenterModel> {
-    const { id, companyId, updatedById } = data;
+    const { id, companyId, updatedById, description} = data;
 
     return this.databaseService.costCenter.update({
       where: {
@@ -59,7 +59,9 @@ export class CostCenterRepository implements ICostCenterRepository {
       },
       data: {
         name: data.name,
-        updatedById
+        updatedById,
+        description,
+        updatedAt: new Date()
       },
     });
   }

@@ -1,20 +1,23 @@
 import { GetPaginationBaseDto } from '@application/dtos/base/requests';
-import { CreateCostCenterRequestDto } from '@application/dtos/cost-center/request';
-import { GetCenterCostDto } from '@application/dtos/cost-center/response/get-center-cost-dto';
+import { CreateCostCenterRequestDto, UpdateCostCenterRequestDto } from '@application/dtos/cost-center/request';
 import { CreateCostCenterUseCase } from '@application/use-cases/cost-center';
+import { DeleteCostCenterUseCase } from '@application/use-cases/cost-center/delete-cost-center.use-case';
 import { GetAllCostCenterUseCase } from '@application/use-cases/cost-center/get-all-cost-center.use-case';
 import { GetCostCenterByIdUseCase } from '@application/use-cases/cost-center/get-cost-center-by-id.use-case';
+import { UpdateCostCenterUseCase } from '@application/use-cases/cost-center/update-cost-center.use-case';
 import { RolesEnum } from '@domain/enums';
 import { LoggedUser, LoggedUserInfo } from '@infrastructure/decorators/logged-user';
 import { Roles } from '@infrastructure/decorators/role';
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 
 @Controller('cost-centers')
 export class CostCenterController {
   constructor(
     private readonly createCostCenterUseCase: CreateCostCenterUseCase,
     private readonly getAllCostCenterUseCase: GetAllCostCenterUseCase,
-    private readonly getCostCenterByIdUseCase: GetCostCenterByIdUseCase
+    private readonly getCostCenterByIdUseCase: GetCostCenterByIdUseCase,
+    private readonly updateCostCenterUseCase: UpdateCostCenterUseCase,
+    private readonly deleteCostCenterUseCase: DeleteCostCenterUseCase
   ) { }
 
   @Post()
@@ -51,4 +54,31 @@ export class CostCenterController {
     });
   }
 
+  @Patch(':id')
+  @Roles(RolesEnum.ADMIN)
+  async updateCostCenter(
+    @LoggedUser() loggerUser: LoggedUserInfo,
+    @Param('id') id: string,
+    @Body() updateCostCenterDto: UpdateCostCenterRequestDto
+  ) {
+    return this.updateCostCenterUseCase.execute({
+      ...updateCostCenterDto,
+      id,
+      companyId: loggerUser.companyId,
+      updatedById: loggerUser.id
+    });
+  }
+
+  @Delete(':id')
+  @Roles(RolesEnum.ADMIN)
+  async deleteCostCenter(
+    @LoggedUser() loggerUser: LoggedUserInfo,
+    @Param('id') id: string
+  ) {
+    return this.deleteCostCenterUseCase.execute({
+      id,
+      companyId: loggerUser.companyId,
+      deletedById: loggerUser.id
+    });
+  }
 }
