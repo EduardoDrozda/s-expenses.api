@@ -4,3 +4,4 @@ export * from './company';
 export * from './cost-center.model';
 export * from './group-model';
 export * from './user';
+export * from './project-model';

@@ -8,6 +8,7 @@ import {
   ExpenseCategoryController,
   ExpenseController,
   GroupController,
+  ProjectController,
   UserController
 } from './controllers';
 
@@ -20,7 +21,8 @@ import {
     ExpenseCategoryController,
     ExpenseController,
     CostCenterController,
-    GroupController
+    GroupController,
+    ProjectController
   ]
 })
 export class ApiModule { }
