@@ -5,7 +5,7 @@ import { LoggerService } from "@common/logger";
 import { GetExpenseCategoryResponseDto } from "@application/dtos/expense-category/response";
 import { BaseResponseWithPaginationDto } from "@application/dtos/base";
 import { PaginationHelper } from "@application/helpers/pagination.helper";
-import { GetExpenseCategoryRequestDto } from "@application/dtos/expense-category/request/get-expense-category.dto";
+import { GetExpenseCategoryRequestDto } from "@application/dtos/expense-category/request/get-expense-category.request.dto";
 
 @Injectable()
 export class GetAllExpenseCategoryUseCase

@@ -4,19 +4,21 @@ import { RepositoriesModule } from '@infrastructure/repositories';
 import {
   AuthController,
   CompanyController,
+  CostCenterController,
+  ExpenseCategoryController,
   ExpenseController,
   UserController
 } from './controllers';
-import { ExpenseCategoryController } from './controllers/expense-category/expense-category.controller';
 
 @Module({
   imports: [UseCasesModule, RepositoriesModule],
   controllers: [
-    CompanyController, 
-    AuthController, 
+    CompanyController,
+    AuthController,
     UserController,
     ExpenseCategoryController,
-    ExpenseController
+    ExpenseController,
+    CostCenterController,
   ]
 })
 export class ApiModule { }

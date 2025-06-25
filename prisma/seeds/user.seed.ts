@@ -5,11 +5,10 @@ import { Prisma, PrismaClient } from "@prisma/client";
 export async function userSeed() {
   const prisma = new PrismaClient();
 
-  const isProduction = process.env.NODE_ENV === "production";
   const hasData = await prisma.user.findFirst();
 
-  if (isProduction || hasData) {
-    console.log("Data already exists in the table, skipping seed.");
+  if (hasData) {
+    console.log("User already exists in the table, skipping seed.");
     return;
   }
 

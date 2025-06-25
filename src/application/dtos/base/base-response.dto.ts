@@ -3,7 +3,7 @@ export type BaseResponseDto = {
   
   createdAt: Date;
   updatedAt: Date;
-  deletedAt?: string | null;
+  deletedAt?: Date | null;
   deletedBy?: string | null;
   createdBy?: string | null;
   updatedBy?: string | null;

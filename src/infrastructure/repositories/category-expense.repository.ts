@@ -16,6 +16,7 @@ export class CategoryExpenseRepository implements ICategoryExpenseRepository {
 
   async create(data: CreateCategoryExpensesInput): Promise<CategoryExpensesModel> {
     const { name, color, description, icon, companyId, createdById } = data;
+    
     return this.databaseService.categoryExpense.create({
       data: {
         name,
@@ -32,7 +33,6 @@ export class CategoryExpenseRepository implements ICategoryExpenseRepository {
     return this.databaseService.categoryExpense.findMany({
       where: {
         companyId: companyId,
-        deletedAt: null,
       },
       orderBy: {
         createdAt: 'desc',

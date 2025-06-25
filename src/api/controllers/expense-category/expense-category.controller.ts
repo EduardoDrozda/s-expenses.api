@@ -37,7 +37,6 @@ export class ExpenseCategoryController {
 
   @Get(':id')
   async findById(@LoggedUser() loggerUser: LoggedUserInfo, @Param('id') id: string) {
-    console.log('Finding expense category by ID:', id);
     return this.getByIdExpenseCategoryUseCase.execute({
       id,
       companyId: loggerUser.companyId

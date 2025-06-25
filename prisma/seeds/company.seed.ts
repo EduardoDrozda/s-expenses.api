@@ -9,7 +9,7 @@ export async function companySeed() {
   const hasData = await prisma.company.findFirst();
 
   if (isProduction || hasData) {
-    console.log("Data already exists in the table, skipping seed.");
+    console.log("Company already exists in the table, skipping seed.");
     return;
   }
 

@@ -22,5 +22,9 @@ export class ExpenseController {
     ) files: Express.Multer.File[],
     @Body() data: CreateExpenseRequestDto
   ) {
+    return this.createExpenseUseCase.execute({
+      ...data,
+      files
+    });
   }
 }

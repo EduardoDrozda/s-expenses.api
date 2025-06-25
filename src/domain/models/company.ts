@@ -1,10 +1,10 @@
-import { BaseModel } from "./base-model";
+import { Company, Prisma } from "@prisma/client";
+import { AuditableModel, BaseModel } from "./base-model";
 
-export type CompanyModel = {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-} & BaseModel
+export type CompanyModel = Company;
 
-export type CreateCompanyInput = Omit<CompanyModel, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateCompanyInput = Prisma.CompanyCreateInput;
+
+export type UpdateCompanyInput = Prisma.CompanyUpdateInput
+
+export type DeleteCompanyInput = Pick<CompanyModel, 'id'> & Pick<AuditableModel, 'deletedBy'>;

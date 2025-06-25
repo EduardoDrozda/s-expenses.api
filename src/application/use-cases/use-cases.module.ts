@@ -6,6 +6,7 @@ import { AUTH_USE_CASES } from "./auth";
 import { USER_USE_CASES } from "./user";
 import { EXPENSE_CATEGORY_USE_CASES } from "./expense-category";
 import { EXPENSES_USE_CASES } from "./expense";
+import { COST_CENTER_USE_CASES } from "./cost-center";
 
 @Global()
 @Module({
@@ -14,13 +15,15 @@ import { EXPENSES_USE_CASES } from "./expense";
     ...AUTH_USE_CASES,
     ...USER_USE_CASES,
     ...EXPENSE_CATEGORY_USE_CASES,
-    ...EXPENSES_USE_CASES
+    ...EXPENSES_USE_CASES,
+    ...COST_CENTER_USE_CASES
   ],
   exports: [
     ...AUTH_USE_CASES,
     ...USER_USE_CASES,
     ...EXPENSE_CATEGORY_USE_CASES,
-    ...EXPENSES_USE_CASES
+    ...EXPENSES_USE_CASES,
+    ...COST_CENTER_USE_CASES
   ]
 })
 export class UseCasesModule { }
