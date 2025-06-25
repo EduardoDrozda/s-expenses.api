@@ -1,4 +1,4 @@
-import { BaseResponseDto } from "@application/dtos/base";
+import { BaseResponseDto } from "@application/dtos/base/requests";
 
 export type GetUserResponseDTO = {
   id: string;

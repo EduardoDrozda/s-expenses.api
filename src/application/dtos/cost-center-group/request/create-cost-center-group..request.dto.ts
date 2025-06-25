@@ -1,4 +1,4 @@
-import { BaseRequestDTO } from "@application/dtos/base";
+import { BaseRequestDTO } from "@application/dtos/base/requests";
 import { CreateProjectDTO } from "@application/dtos/projects/requests/create-projects.dto";
 import { Type } from "class-transformer";
 import { IsArray, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";

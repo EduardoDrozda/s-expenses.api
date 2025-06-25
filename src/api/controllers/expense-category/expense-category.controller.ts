@@ -1,4 +1,4 @@
-import { GetPaginationBaseDto } from '@application/dtos/base';
+import { GetPaginationBaseDto } from '@application/dtos/base/requests';
 import { CreateExpenseCategoryRequestDto, UpdateExpenseCategoryRequestDto } from '@application/dtos/expense-category/request';
 import { CreateExpenseCategoryUseCase, DeleteByIdExpenseCategoryUseCase, GetAllExpenseCategoryUseCase, GetByIdExpenseCategoryUseCase } from '@application/use-cases/expense-category';
 import { UpdateExpenseCategoryUseCase } from '@application/use-cases/expense-category/update-expense-category.use-case';

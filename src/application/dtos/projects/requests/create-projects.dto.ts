@@ -1,4 +1,4 @@
-import { BaseRequestDTO } from "@application/dtos/base";
+import { BaseRequestDTO } from "@application/dtos/base/requests";
 import { IsOptional, IsString } from "class-validator";
 import { IsNotEmpty } from "class-validator";
 

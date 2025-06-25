@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { IBaseUseCase } from "../IBase.use-case";
 import { COST_CENTER_REPOSITORY, ICostCenterRepository } from "@application/repositories";
 import { GetCostCenterRequestDto } from "@application/dtos/cost-center/request/get-cost-center.request.dto";
-import { BaseResponseWithPaginationDto } from "@application/dtos/base";
+import { BaseResponseWithPaginationDto } from "@application/dtos/base/requests";
 import { GetCostCenterGroupDto } from "@application/dtos/cost-center-group/response";
 import { LoggerService } from "@common/logger";
 import { PaginationHelper } from "@application/helpers/pagination.helper";

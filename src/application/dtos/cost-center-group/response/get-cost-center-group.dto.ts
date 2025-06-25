@@ -1,4 +1,4 @@
-import { BaseResponseDto } from "@application/dtos/base";
+import { BaseResponseDto } from "@application/dtos/base/requests";
 import { GetProjectDto } from "@application/dtos/projects/response";
 
 export type GetCostCenterGroupDto = BaseResponseDto & {

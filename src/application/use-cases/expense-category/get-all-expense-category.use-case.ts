@@ -3,7 +3,7 @@ import { IBaseUseCase } from "../IBase.use-case";
 import { CATEGORY_EXPENSE_REPOSITORY, ICategoryExpenseRepository } from "@application/repositories";
 import { LoggerService } from "@common/logger";
 import { GetExpenseCategoryResponseDto } from "@application/dtos/expense-category/response";
-import { BaseResponseWithPaginationDto } from "@application/dtos/base";
+import { BaseResponseWithPaginationDto } from "@application/dtos/base/requests";
 import { PaginationHelper } from "@application/helpers/pagination.helper";
 import { GetExpenseCategoryRequestDto } from "@application/dtos/expense-category/request/get-expense-category.request.dto";
 

@@ -1,4 +1,4 @@
-import { BaseRequestDTO } from "@application/dtos/base";
+import { BaseRequestDTO } from "@application/dtos/base/requests";
 import { IsNotEmpty } from "class-validator";
 
 export class CreateUserRequestDTO extends BaseRequestDTO {

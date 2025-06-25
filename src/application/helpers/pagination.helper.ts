@@ -1,4 +1,4 @@
-import { BaseResponseWithPaginationDto } from "@application/dtos/base";
+import { BaseResponseWithPaginationDto } from "@application/dtos/base/requests";
 
 export abstract class PaginationHelper {
   static paginate<T>(
