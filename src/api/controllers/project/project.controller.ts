@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { CreateProjectRequestDto, UpdateProjectRequestDto, DeleteProjectRequestDto } from '@application/dtos/projects/requests';
 import { RolesEnum } from '@domain/enums';
 import { LoggedUser, LoggedUserInfo } from '@infrastructure/decorators/logged-user';
@@ -10,6 +10,7 @@ import {
   GetProjectByIdUseCase, 
   UpdateProjectUseCase 
 } from '@application/use-cases/projects';
+import { GetPaginationBaseDto } from '@application/dtos/base/requests';
 
 @Controller('projects')
 export class ProjectController {
@@ -37,10 +38,12 @@ export class ProjectController {
   @Get()
   @Roles(RolesEnum.ADMIN)
   async findAll(
-    @LoggedUser() loggerUser: LoggedUserInfo
+    @LoggedUser() loggerUser: LoggedUserInfo, 
+    @Query() searchParams: GetPaginationBaseDto
   ) {
     return this.getAllProjectUseCase.execute({
-      companyId: loggerUser.companyId
+      companyId: loggerUser.companyId,
+      params: searchParams
     });
   }
 
